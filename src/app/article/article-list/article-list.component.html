@@ -1,0 +1,13 @@
+<p>article-list works!</p>
+
+
+<div *ngIf="articles!=undefined; else showEmpty">
+    <div *ngFor="let a of articles">
+        <app-article [article]="a"></app-article>
+    </div>
+</div>
+
+
+<ng-template #showEmpty>
+    <p>There is no articles</p>
+</ng-template>
