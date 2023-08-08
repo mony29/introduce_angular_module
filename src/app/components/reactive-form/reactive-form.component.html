@@ -1,0 +1,73 @@
+<div>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="reactiveForm">
+        <!-- check validation on username -->
+        <label for="username">Username</label> <br>
+        <input type="text" formControlName="username" placeholder="username"> <br>
+        <ng-container *ngIf="reactiveForm.get('username')?.invalid">
+            <p *ngIf="reactiveForm.get('username')?.touched && 
+            reactiveForm.get('username')?.errors?.['required']" style="color: red;">
+                *Username is required.
+            </p>
+            <!-- we use '?.' to prevent null because this property can be null, so when it's null we cannot check condition -->
+            <p *ngIf="reactiveForm.get('username')?.errors?.['minlength'] && reactiveForm.get('username')?.dirty"
+                style="color: red;">
+                *Username must be at least 6 characters.
+            </p>
+            <p style="color: red;"
+                *ngIf="reactiveForm.get('username')?.errors?.['nameIsRestricted'] && reactiveForm.get('username')?.dirty">
+                *This username is invalid, please try other.
+            </p>
+        </ng-container>
+
+        <!-- check validation on email & address -->
+        <ng-container formGroupName="emailAddress">
+            <!-- email validation -->
+            <label for="email">Email</label> <br>
+            <input type="email" formControlName="email" placeholder="email"> <br>
+            <ng-container *ngIf="reactiveForm.get('emailAddress.email')?.invalid">
+                <p style="color: red;" *ngIf="reactiveForm.get('emailAddress.email')?.touched && 
+                reactiveForm.get('emailAddress.email')?.errors?.['required']">
+                    *Email is required.
+                </p>
+                <p style="color: red;" *ngIf="reactiveForm.get('emailAddress.email')?.dirty &&
+                reactiveForm.get('emailAddress.email')?.errors?.['email']">
+                    *Email is invalided.
+                </p>
+            </ng-container>
+            <!-- address validation -->
+            <label for="address">Address</label> <br>
+            <input type="text" formControlName="address" placeholder="address"> <br>
+            <ng-container *ngIf="reactiveForm.get('emailAddress.address')?.invalid">
+                <p style="color: red;"
+                *ngIf="reactiveForm.get('emailAddress.address')?.touched &&
+                reactiveForm.get('emailAddress.address')?.errors?.['required']">
+                    *Address is required.
+                </p>
+            </ng-container>
+        </ng-container>
+
+        <!-- add new hobby -->
+        <ng-container formArrayName="hobbies">
+            <ng-container *ngFor="let hobby of hobbiesControls; let i = index">
+              <label for="hobby">Hobby</label> <br>    
+              <!-- need [formControlName]="i" to get its value-->
+              <input type="text" [formControlName]="i" placeholder="hobby"> <br>  
+              <!-- how to make remove button display once? -->
+              <button (click)="removeHobby(i)">Remove hobby</button>  <br>
+            </ng-container>
+          </ng-container>
+          <button (click)="addHobby()">Add Hobby</button> <br>
+
+
+        <!-- <button type="submit" [disabled]="reactiveForm.invalid">Submit</button> user must input all the requirment -->
+        <button type="submit">Submit</button> <br>
+        <button (click)="setDefaultValues()" type="submit">
+            Set Default Values
+        </button> <br>
+        <button (click)="updateUsername()" type="submit">
+            Update Username
+        </button> <br>
+     
+
+    </form>
+</div>

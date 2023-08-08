@@ -34,6 +34,6 @@ export class ArticleListComponent implements OnInit {
         categories : {id : 2, name : 'Language'}
       },
     )
-    console.log(this.articles)
+    console.log(...this.articles)
   }
 }
