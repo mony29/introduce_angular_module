@@ -1,0 +1,39 @@
+
+
+<!-- Remember we will need three directives while using the template-driven form (NgModel, NgForm, NgModelGroup) -->
+
+<div>
+    <form (ngSubmit)='onSubmitForm()' #form='ngForm'>
+        <label for="username">Username</label> <br>
+        <input type="text" name="username" id="username" [(ngModel)]="username" #validateUsername="ngModel" required  placeholder="username" >
+        <br>
+        <p class="text-red-500" *ngIf="validateUsername.invalid && validateUsername.touched">
+            *This username is required.
+        </p>
+
+        <label for="email">Email</label> <br>
+        <input type="email" name="email" id="email" [(ngModel)]="email" #validateEmail="ngModel"  required placeholder="email" > <br>
+        <p class="text-red-500" *ngIf="validateEmail.invalid && validateEmail.touched">
+            *This email is required.
+        </p>
+
+        <label for="gender">Gender</label> <br>
+        <input type="text" name="gender" id="gender" [(ngModel)]="gender" #validateGender="ngModel" required placeholder="gender" > <br>
+        <p class="text-red-500" *ngIf="validateGender.invalid && validateGender.touched">
+            *This gender is required.
+        </p>
+
+        <button>Submit</button> <br>
+        <button (click)="fillValues()">Fill Values</button> <br>
+        <button (click)="updateGender()">Update Gender</button>
+    </form>
+
+    <!-- Get value to display in the template -->
+    <div *ngIf="submitted">
+        <h1 class="font-bold text-2xl">Your Data</h1>
+        <p>Username : {{user.username}}</p>
+        <p>Email : {{user.email}}</p>
+        <p>Gender : {{user.gender}}</p>
+    </div>
+
+</div>
