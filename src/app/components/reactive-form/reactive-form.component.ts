@@ -72,7 +72,8 @@ export class ReactiveFormComponent implements OnInit {
       emailAddress : {
         email : 'email@gmail.com',
         address : 'Phnom-penh'
-      }
+      },
+      hobbies : []
     })
   }
 
